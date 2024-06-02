@@ -4,54 +4,136 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Contact Form</title>
+  <link href="
+https://cdn.jsdelivr.net/npm/parsleyjs@2.9.2/src/parsley.min.css
+" rel="stylesheet">
   <link rel="stylesheet" href="./style.css">
+  
+</head>
 </head>
 <body>
+
   <main class="container">
-    <form class="form-group">
+    <form class="form-group" id="form" data-parsley-validate="">
+      <div id="message" aria-live="polite"></div>
       <h1>Contact Us</h1>
       <div class="form-subgroup">
         <div class="form-wrapper">
-         <label for="firstname">First Name <span>*</span></label>
-         <input type="text" name="firstname" id="firstname"/>
+          <label for="firstname">First Name <span>*</span></label>
+          <input 
+            type="text" 
+            name="firstname" 
+            id="firstname" 
+            required
+            data-parsley-required-message="First name is required."
+
+          />
         </div>
         <div class="form-wrapper">
-         <label for="lastname">Last Name <span>*</span></label>
-         <input type="text" name="lastname" id="lastname"/>
+          <label for="lastname">Last Name <span>*</span></label>
+          <input 
+            type="text" 
+            name="lastname" 
+            id="lastname" 
+            required 
+            data-parsley-required-message="Last name is required."
+          />
         </div>
       </div>
       <div class="form-wrapper">
-        <label for="Email">Email <span>*</span></label>
-        <input type="email" name="email" id="email"/>
+        <label for="email">Email <span>*</span></label>
+        <input 
+          type="email" 
+          name="email" 
+          id="email" 
+          required 
+          data-parsley-type="email" 
+          data-parsley-trigger="change"
+          data-parsley-required-message="A valid email is required."
+        />
       </div>
       <div>
         <br>
         <label>Query Type <span>*</span></label>
       </div>
       <div class="form-subgroup">
-        <div class="flex-class custom-boarder">
-          <input type="radio" name="enquity" id="enquity"/>
-          <h4 class="custom-text">General Enquity</h4>
+        <div class="flex-class custom-border">
+          <input 
+            type="radio" 
+            name="query_type" 
+            value="general_enquiry" 
+            id="general_enquiry" 
+            required 
+            data-parsley-required-message="Please select a query type."
+          />
+          <h4 class="custom-text">General Enquiry</h4>
         </div>
-        <div class="flex-class custom-boarder">
-          <input type="radio" name="support_request" id="support_request"/>
+        <div class="flex-class custom-border">
+          <input 
+            type="radio" 
+            name="query_type" 
+            value="support_request" 
+            id="support_request"
+          />
           <h4 class="custom-text">Support Request</h4>
         </div>
       </div>
       <div class="form-wrapper">
-        <label for="equity">Message <span>*</span></label>
-        <textarea name="" id=""></textarea>
+        <label for="message">Message <span>*</span></label>
+        <textarea 
+          name="message" 
+          id="message" 
+          required 
+          data-parsley-required-message="Please enter your message."
+        ></textarea>
       </div>
       <div class="flex-class">
-        <input type="checkbox" name="consent" id="consent"/>
+        <input 
+          type="checkbox" 
+          name="consent" 
+          id="consent" 
+          required 
+          data-parsley-required-message="You must consent to being contacted."
+        />
         <div>
-          <p> I consent to being contacted by the team <span>*</span>
+          <p>I consent to being contacted by the team <span>*</span></p>
         </div>
       </div>
       <button type="submit">Submit</button>
-   </form>
+    </form>
   </main>
-
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <!-- Parsley JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/parsley.js/2.9.2/parsley.min.js"></script>
   <script src="./main.js"></script>
+  <script type="text/javascript">
+     $(document).ready(function() {
+            // Initialize Parsley on the form
+            var $form = $('#form').parsley();
+
+            // On form submit
+            $('#form').on('submit', function(event) {
+                event.preventDefault();
+
+                // Validate the form
+                $form.validate();
+
+                // Check if form is valid
+                if ($form.isValid()) {
+                    $('#message').text('Form is valid!').css('color', 'green');
+                } else {
+                    $('#message').text('Form is invalid! Please correct the errors and try again.').css('color', 'red');
+                }
+            });
+
+            // Attach event listeners for specific field validations
+            $form.on('field:success', function() {
+                $('#message').text('This field is valid!').css('color', 'green');
+            }).on('field:error', function() {
+                $('#message').text('This field is invalid!').css('color', 'red');
+            });
+        });
+  </script>
+
 </body>
 </html>
