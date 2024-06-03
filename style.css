@@ -23,10 +23,16 @@ label, p {
   align-items: center;
 }
 
-.custom-boarder {
+.flex-col {
+  display: flex;
+  flex-direction: column;
+} 
+
+.custom-border {
   border: 1px solid #909B97;
+
   border-radius: 5px;
-  padding-left: 0.50rem;
+  padding-left: 0.40rem;
 }
 
 .container {

@@ -67,14 +67,21 @@ https://cdn.jsdelivr.net/npm/parsleyjs@2.9.2/src/parsley.min.css
             data-parsley-required-message="Please select a query type."
           />
           <h4 class="custom-text">General Enquiry</h4>
+          <div>
+            <!-- Error message placeholder -->
+            <!-- <div id="emailError" style="color: red;"></div> -->
+          </div>
         </div>
         <div class="flex-class custom-border">
-          <input 
-            type="radio" 
-            name="query_type" 
-            value="support_request" 
-            id="support_request"
-          />
+          <div class="flex-col">
+            <input 
+              type="radio" 
+              name="query_type" 
+              value="support_request" 
+              id="support_request"
+              data-parsley-required-message="Please select a query type."
+            />
+          </div>
           <h4 class="custom-text">Support Request</h4>
         </div>
       </div>
@@ -88,13 +95,15 @@ https://cdn.jsdelivr.net/npm/parsleyjs@2.9.2/src/parsley.min.css
         ></textarea>
       </div>
       <div class="flex-class">
-        <input 
-          type="checkbox" 
-          name="consent" 
-          id="consent" 
-          required 
-          data-parsley-required-message="You must consent to being contacted."
-        />
+        <div class="flex-col">
+          <input 
+            type="checkbox" 
+            name="consent" 
+            id="consent" 
+            required 
+            data-parsley-required-message="You must consent to being contacted."
+          />
+        </div>
         <div>
           <p>I consent to being contacted by the team <span>*</span></p>
         </div>
@@ -110,7 +119,7 @@ https://cdn.jsdelivr.net/npm/parsleyjs@2.9.2/src/parsley.min.css
      $(document).ready(function() {
             // Initialize Parsley on the form
             var $form = $('#form').parsley();
-
+            
             // On form submit
             $('#form').on('submit', function(event) {
                 event.preventDefault();
@@ -132,6 +141,13 @@ https://cdn.jsdelivr.net/npm/parsleyjs@2.9.2/src/parsley.min.css
             }).on('field:error', function() {
                 $('#message').text('This field is invalid!').css('color', 'red');
             });
+
+            // $form.on("field:error", function() {
+            //   let errorMessage = this.getErrorsMessages().join('; ');
+        
+            //   // Display the error message at the desired location
+            //   $('#emailError').text(errorMessage);
+            // })
         });
   </script>
 
